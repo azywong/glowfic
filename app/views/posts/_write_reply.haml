@@ -13,7 +13,9 @@
       = hidden_field_tag :per_page, params[:per_page]
     #post-form-wrapper
       = f.text_area :content, class: 'tinymce'
-      = tinymce
+      - tinymce_params = {}
+      - tinymce_params[:body_class] = 'tinymce_dark' if current_user.layout == 'starrydark' || current_user.layout == 'dark'
+      = tinymce tinymce_params
       = submit_tag (method == :put ? 'Save' : "Post"), class: 'button', id: 'submit_button', disable_with: 'Saving...'
       = submit_tag "Preview", class: 'button', id: 'preview_button', disable_with: 'Loading...', name: 'button_preview'
       - if method == :post
