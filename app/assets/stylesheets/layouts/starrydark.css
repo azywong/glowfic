@@ -56,6 +56,14 @@ a:visited { color: #9C9AA4; }
 /*Darker buttons in post editor! (like link-box)*/
 #post-form-wrapper > button, #post-form-wrapper > input.button { background: none; background-color: #463c65; color: #FFFFFF; border: 0px; }
 
+/*Darkerer editor!
+
+body.tinymce_dark { background-color: #211e2f; color: #DADADA; }
+#post-form-wrapper .mce-panel, #post-form-wrapper .mce-btn { background-color: #191723; }
+#post-form-wrapper .mce-container, #post-form-wrapper .mce-container *, #post-form-wrapper .mce-widget, #post-form-wrapper .mce-widget *, #post-form-wrapper .mce-reset { color: #CCC; }
+#post-form-wrapper .mce-edit-area { border-top-color: #504971; }
+#post-form-wrapper .mce-btn-group:not(:first-child) { border-left-color: #504971; }*/
+
 /*Darker editor! (#post-form-wrapper for preference of CSS rules over TinyMCE's ones, ew)*/
 #post-form-wrapper .mce-panel, #post-form-wrapper .mce-btn { background-color: #2e293f; }
 #post-form-wrapper .mce-container, #post-form-wrapper .mce-container *, #post-form-wrapper .mce-widget, #post-form-wrapper .mce-widget *, #post-form-wrapper .mce-reset { color: #CCC; }
