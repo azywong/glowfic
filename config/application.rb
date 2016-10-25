@@ -15,9 +15,7 @@ Bundler.require(*Rails.groups)
 
 module Glowfic
   ALLOWED_TAGS = ["b", "i", "u", "sub", "sup", "del", "hr", "p", "br", "div", "span", "pre", "code", "h1", "h2", "h3", "h4", "h5", "h6", "ul", "ol", "li", "dl", "dt", "dd", "a", "img", "blockquote", "table", "td", "th", "tr", "strike", "s", "strong", "em", "big", "small", "font"]
-  POST_CONTENT_SANITIZER = Sanitize::Config.merge(Sanitize::Config::RELAXED,
-    :elements => ALLOWED_TAGS,
-    :attributes => {
+  ALLOWED_TAG_ATTRIBUTES = {
       :all => ["xml:lang", "class", "style", "title"],
       "hr" => ["width"],
       "li" => ["value"],
@@ -29,6 +27,9 @@ module Glowfic
       "th" => ["abbr", "width"],
       "blockquote" => ["cite"]
     }
+  POST_CONTENT_SANITIZER = Sanitize::Config.merge(Sanitize::Config::RELAXED,
+    :elements => ALLOWED_TAGS,
+    :attributes => ALLOWED_TAG_ATTRIBUTES
   )
 
   class Application < Rails::Application

@@ -3,6 +3,8 @@
     %b Reply
     .view-button#rtf{class: ('selected' if (params[:editor_mode] || current_user.default_editor) == 'rtf')} Rich Text
     .view-button#html{class: ('selected' if (params[:editor_mode] || current_user.default_editor) == 'html')} HTML
+    .view-button#markup-allowed{title: "Toggle RTF editor and HTML editor\nAllowed tags: #{Glowfic::ALLOWED_TAGS.sort * ', '}"} ?
+    - # title gets overridden by JS
     %br
     %br
     = f.hidden_field :post_id
@@ -17,5 +19,17 @@
       = submit_tag "Preview", class: 'button', id: 'preview_button', name: 'button_preview'
       - if method == :post
         = submit_tag "Save Draft", class: 'button', id: 'draft_button', disable_with: 'Saving...', name: 'button_draft'
+    %br
+    #markup-allowed-box{style: 'display:none'}
+      %b Allowed tags in the HTML editor:
+      = Glowfic::ALLOWED_TAGS.sort * ', '
+      %br
+      %br
+      %b Allowed attributes:
+      - Glowfic::ALLOWED_TAG_ATTRIBUTES.each do |tag_name, attrs|
+        = succeed ':' do
+          %b= tag_name
+        = attrs * ', '
+        %br
 
 = render partial: 'posts/editor', locals: {item: reply}

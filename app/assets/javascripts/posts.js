@@ -150,8 +150,12 @@ $(document).ready(function() {
       $(this).addClass('selected');
       tinyMCE.execCommand('mceRemoveEditor', false, 'post_content');
       tinyMCE.execCommand('mceRemoveEditor', false, 'reply_content');
+    } else if (this.id == 'markup-allowed') {
+      $("#markup-allowed-box").toggle();
     };
   });
+
+  $("#markup-allowed").attr('title', 'Allowed markup');
 
   $("#post_privacy").change(function() {
     if($(this).val() == PRIVACY_ACCESS) {
