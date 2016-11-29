@@ -54,3 +54,4 @@ body { color: #A2A2A2; }
 }
 .view-button.selected { background-color: #6A6A6A; }
 .link-box { color: #DDDDDD; }
+#content .paginator.paginator-compact { border-bottom: none; }
