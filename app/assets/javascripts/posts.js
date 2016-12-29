@@ -20,7 +20,10 @@ $(document).ready(function() {
     //  .info + Join Thread
     //  .hidden
     var info_box = $("<div class='info'>").append(expander_text);
-    var hidden_box = $("<div class='hidden'>").append(expander.children(":not(.noexpand)"));
+    var hidden_box = $("<div class='hidden'>")
+      .append(expander.children(":not(.noexpand)"));
+    hidden_box.append(hidden_box.children(".hidden.expand").children());
+    hidden_box.children(".hidden.expand").remove();
     expander.children(".noexpand").remove();
     expander.append(info_box).append(hidden_box);
   });
