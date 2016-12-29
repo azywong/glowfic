@@ -13,6 +13,18 @@ $(document).ready(function() {
 
   PRIVACY_ACCESS = 2; // TODO don't hardcode
 
+  $("div[data-expander-text]").each(function(){
+    var expander = $(this);
+    var expander_text = expander.data('expander-text');
+    //.post-expander
+    //  .info + Join Thread
+    //  .hidden
+    var info_box = $("<div class='info'>").append(expander_text);
+    var hidden_box = $("<div class='hidden'>").append(expander.children(":not(.noexpand)"));
+    expander.children(".noexpand").remove();
+    expander.append(info_box).append(hidden_box);
+  });
+
   // Adding Select2 UI to relevant selects
   $("#post_board_id").select2({
     width: '200px',
