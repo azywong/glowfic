@@ -33,7 +33,7 @@
     = render partial: 'characters/list_view'
   - else
     = render partial: 'characters/icon_view', locals: {characters: @template.characters.order('name asc').includes(:default_icon)}
-- if @posts.present?
+- if @posts.any? {|post| post.visible_to?(current_user)}
   %br
   - content_for :posts_title do 'Posts with Template Instances' end
   = render partial: 'posts/list', locals: {posts: @posts, path: :template_path}

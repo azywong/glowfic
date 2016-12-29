@@ -41,7 +41,7 @@
     %br
     = link_to 'Replace character', replace_character_path(@character), class: 'character-replace'
 %br
-- if @posts.present?
+- if @posts.any? {|post| post.visible_to?(current_user)}
   - content_for :posts_title do 'Recent Threads' end
   = render partial: 'posts/list', locals: {posts: @posts, path: :character_path}
 %br
