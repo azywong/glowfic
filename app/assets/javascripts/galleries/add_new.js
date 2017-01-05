@@ -1,7 +1,56 @@
 $(document).ready( function() {
   fixButtons();
+  $(".icon-row td:has(input)").each(function(){
+    $(this).keydown(iconbit_keydown);
+  });
   bindFileInput($("#icon_files"));
 });
+
+
+function iconbit_keydown(event) {
+  //key_up = 38;
+  //key_down = 40;
+  if (event.which == 40 || event.which == 38 || event.which == 37 || event.which == 39) {
+    this_in = $("input", this);
+    switch (this_in.get(0).type) {
+      case "text":
+        this_in_caret = this_in.get(0).selectionStart;
+        this_in_len = this_in.val().length;
+        break;
+      case "file":
+        this_in_caret = -1;
+        this_in_len = 0;
+        break;
+      default:
+        this_in_caret = -1;
+        this_in_len = 10;
+        break;
+    }
+    consume = false;
+    switch (event.which) {
+      case 39:
+        if (this_in_len == 0 || (this_in_caret && this_in_caret >= this_in_len)) {
+          $(this).closest('td').next().find('input').focus();
+          consume = true;
+        } break;
+      case 37:
+        if (this_in_len == 0 || this_in_caret == 0) {
+          $(this).closest('td').prev().find('input').focus();
+          consume = true;
+        }
+        break;
+      case 40:
+        $(this).closest('tr').next().children().eq($(this).closest('td').index()).find('input').focus();
+        consume = true;
+        break;
+      case 38:
+        $(this).closest('tr').prev().children().eq($(this).closest('td').index()).find('input').focus();
+        consume = true;
+        break;
+    }
+    if (consume) event.preventDefault();
+  }
+}
 
 function fixButtons() {
   $(".icon-row-add").hide().unbind();
@@ -38,6 +87,9 @@ function addNewRow() {
   urlField.attr('id', 'icons_'+index+'_url');
 
   new_row.insertBefore($(".submit-row"));
+  $("td:has(input)", new_row).each(function(){
+    $(this).keydown(iconbit_keydown);
+  });
   return index;
 };
 
