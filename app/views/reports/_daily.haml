@@ -7,7 +7,7 @@
   - 0.upto(7) do |num_days|
     - day = num_days.days.ago
     - posts = posts_for(day)
-    - if posts.any? {|post| post.visible_to?(current_user)}
+    - if posts.present?
       %tbody
         %tr
           %th.subber{colspan: 7}= day.strftime("%b %d, %Y")
