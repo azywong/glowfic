@@ -24,15 +24,16 @@ class WritableController < ApplicationController
   end
 
   def show_post(cur_page=nil)
-    if page.to_i == 0
+    per = per_page
+    cur_page ||= page
+
+    if page.to_i <= 0 || page.to_f % 1 != 0
       unless VALID_PAGES.include?(page)
         flash[:error] = "Page not recognized, defaulting to page 1."
         self.page = cur_page = 1
       end
     end
 
-    per = per_page
-    cur_page ||= page
     @replies = @post.replies
     @paginate_params = {controller: 'posts', action: 'show', id: @post.id}
 
@@ -53,12 +54,12 @@ class WritableController < ApplicationController
         self.page = cur_page = 1
       end
     elsif cur_page == 'last'
-      self.page = cur_page = @post.replies.paginate(per_page: per, page: 1).total_pages
+      self.page = cur_page = @post.replies.page(1).per(per).total_pages
     elsif cur_page == 'unread'
       if logged_in?
         @unread = @post.first_unread_for(current_user) if logged_in?
         if @unread.nil?
-          self.page = cur_page = @post.replies.paginate(per_page: per, page: 1).total_pages
+          self.page = cur_page = @post.replies.page(1).per(per).total_pages
         elsif @unread.class == Post
           self.page = cur_page = 1
         else
@@ -71,6 +72,7 @@ class WritableController < ApplicationController
     else
       self.page = cur_page = cur_page.to_i
     end
+    self.page = 1 if page == 0 # total_pages can be 0, should be 1 if there are no replies
 
     @replies = @replies
       .select('replies.*, characters.name, characters.screenname, icons.keyword, icons.url, users.username')
@@ -78,8 +80,9 @@ class WritableController < ApplicationController
       .joins("LEFT OUTER JOIN characters ON characters.id = replies.character_id")
       .joins("LEFT OUTER JOIN icons ON icons.id = replies.icon_id")
       .order('id asc')
-      .paginate(page: cur_page, per_page: per)
-    redirect_to post_path(@post, page: @replies.total_pages, per_page: per) and return if cur_page > @replies.total_pages
+      .page(cur_page).per(per)
+    total_pages = [@replies.total_pages,1].max
+    redirect_to post_path(@post, page: total_pages, per_page: per) and return if cur_page > total_pages
     use_javascript('paginator')
 
     unless @post.board.open_to_anyone?

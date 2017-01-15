@@ -1,5 +1,5 @@
 - 1.upto((replies.count / 250.0).ceil).each do |index|
-  - replies.paginate(per_page: 250, page: index).each do |reply|
+  - replies.page(index).per(250).each do |reply|
     - klass = cycle('even'.freeze, 'odd'.freeze)
     .post-container{class: klass}
       <a id="reply-#{reply.id}" class="noheight"> </a>

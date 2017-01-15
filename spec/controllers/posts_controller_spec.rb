@@ -350,7 +350,7 @@ RSpec.describe PostsController do
         get :show, id: post.id, at_id: last_reply.id
         expect(assigns(:replies)).to eq([last_reply])
         expect(assigns(:replies).current_page.to_i).to eq(1)
-        expect(assigns(:replies).per_page).to eq(25)
+        expect(assigns(:replies).limit_value).to eq(25)
       end
 
       it "works for specified reply with page settings" do
@@ -358,7 +358,7 @@ RSpec.describe PostsController do
         get :show, id: post.id, at_id: second_last_reply.id, per_page: 1
         expect(assigns(:replies)).to eq([second_last_reply])
         expect(assigns(:replies).current_page.to_i).to eq(1)
-        expect(assigns(:replies).per_page).to eq(1)
+        expect(assigns(:replies).limit_value).to eq(1)
       end
 
       it "works for specified reply with page settings" do
@@ -367,7 +367,7 @@ RSpec.describe PostsController do
         get :show, id: post.id, at_id: second_last_reply.id, per_page: 1, page: 2
         expect(assigns(:replies)).to eq([last_reply])
         expect(assigns(:replies).current_page.to_i).to eq(2)
-        expect(assigns(:replies).per_page).to eq(1)
+        expect(assigns(:replies).limit_value).to eq(1)
       end
 
       it "works for unread" do

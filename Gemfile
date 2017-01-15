@@ -12,6 +12,7 @@ gem 'gon'
 gem 'haml-rails', '~> 0.4.0'
 gem 'httparty'
 gem 'jquery-rails'
+gem 'kaminari'
 gem 'newrelic_rpm'
 gem 'nilify_blanks'
 gem 'nokogiri'
@@ -29,7 +30,6 @@ gem 'sass-rails'
 gem 'select2-rails'
 gem 'test-unit', '~> 3.0' # required by Heroku for production console
 gem 'tinymce-rails'
-gem 'will_paginate', '~> 3.0.6'
 
 group :production do
   gem 'puma'

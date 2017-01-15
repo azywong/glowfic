@@ -115,6 +115,7 @@ select.per-page { margin-top: 5px; margin-bottom: 5px; }
 
 /* Pagination */
 .pagination { font-size: 14px; padding: 5px; display: inline-block; }
+nav.pagination { padding: 0; }
 .pagination .current { font-weight: bold; font-style: normal; background: #3f7055; }
 .pagination a, .pagination .current, .pagination .disabled { display: inline-block; padding: 5px 10px; }
 .pagination .disabled { color: #101010; text-align: left; }

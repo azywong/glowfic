@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'will_paginate/array'
 
 class PostsController < WritableController
   before_filter :login_required, except: [:index, :show, :history, :warnings, :search, :stats]
@@ -33,7 +32,7 @@ class PostsController < WritableController
     @posts = posts_from_relation(@posts.order('tagged_at desc'), true, false)
     @posts = @posts.select { |p| p.visible_to?(current_user) }
     @posts = @posts.select { |p|  @opened_ids.include?(p.id) } if @started
-    @posts = @posts.paginate(per_page: 25, page: page)
+    @posts = Kaminari.paginate_array(@posts).page(page).per(25)
     @hide_quicklinks = true
     @page_title = @started ? 'Opened Threads' : 'Unread Threads'
   end
@@ -236,7 +235,7 @@ class PostsController < WritableController
       where = Post.where(character_id: params[:character_id]).where(id: post_ids).where_values.reduce(:or)
       @search_results = @search_results.where(where)
     end
-    @search_results = @search_results.paginate(page: page, per_page: 25)
+    @search_results = @search_results.page(page).per(25)
   end
 
   def warnings

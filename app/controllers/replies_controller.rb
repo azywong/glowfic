@@ -60,7 +60,7 @@ class RepliesController < WritableController
       .select('replies.*, characters.name, characters.screenname, users.username, posts.subject')
       .joins(:user, :post)
       .joins("LEFT OUTER JOIN characters ON characters.id = replies.character_id")
-      .paginate(page: page, per_page: 25)
+      .page(page).per(25)
   end
 
   def create

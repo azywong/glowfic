@@ -85,11 +85,12 @@ class ApplicationController < ActionController::Base
       .joins(:board)
       .joins(:last_user)
 
-    posts = posts.paginate(page: page, per_page: 25) if with_pagination
+    posts = posts.page(page).per(25) if with_pagination
     posts = posts.no_tests if no_tests
 
-    if (with_pagination && posts.total_pages <= 1) || posts.count <= 25
+    if (with_pagination && posts.total_pages <= 1) || (!with_pagination && posts.count <= 25)
       posts = posts.select {|post| post.visible_to?(current_user)}
+      posts = Kaminari.paginate_array(posts).page(page).per(25)
     end
 
     if logged_in?

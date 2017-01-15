@@ -1,0 +1,16 @@
+Kaminari.configure do |config|
+  # config.default_per_page = 25
+  config.max_per_page = 500
+  config.window = 4
+  config.outer_window = 2
+  # config.left = 0
+  # config.right = 0
+  # config.page_method_name = :page
+  # config.param_name = :page
+end
+
+class Kaminari::PaginatableArray
+  def klass
+    first.try(:class)
+  end
+end
