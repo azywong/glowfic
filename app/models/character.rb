@@ -21,7 +21,7 @@ class Character < ActiveRecord::Base
   validate :valid_template, :valid_group, :valid_galleries, :valid_default_icon
 
   attr_accessor :new_template_name, :group_name
-  attr_protected []
+  attr_protected [] # attr_accessible :name, :template_name, :screenname, :template, :template_id, :default_icon, :default_icon_id, :pb, :character_group, :character_group_id, :setting, :description, :gallery_ids, :galleries, :new_template_name
 
   nilify_blanks
 

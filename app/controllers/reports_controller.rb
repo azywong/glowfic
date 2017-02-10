@@ -8,6 +8,7 @@ class ReportsController < ApplicationController
       flash[:error] = "Could not identify the type of report."
       redirect_to reports_path
     end
+    @report_type = (params[:id] == 'daily' ? 'daily' : 'monthly')
 
     @page_title = params[:id].capitalize + " Report"
     @hide_quicklinks = true
