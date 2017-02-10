@@ -32,14 +32,14 @@
     = f.text_field :description, placeholder: 'Description'
     .details (Optional: describe the thread's setting and major players, e.g. A Bell and Vorkosigans in Chronicle)
     - if post.id.present? && !post.editable_by?(current_user)
-      = submit_tag 'Save', class: 'button', id: 'submit_button', disable_with: 'Saving...'
+      = submit_tag 'Save', class: 'button', id: 'submit_button', data: { disable_with: 'Saving...' }
     - else
       %br
       #post-form-wrapper
         = f.text_area :content, class: 'tinymce'
         = f.hidden_field :character_id, id: 'reply_character_id'
         = f.hidden_field :icon_id, id: 'reply_icon_id'
-        = submit_tag (method == :put ? 'Save' : "Post"), class: 'button', id: 'submit_button', disable_with: 'Saving...'
+        = submit_tag (method == :put ? 'Save' : "Post"), class: 'button', id: 'submit_button', data: { disable_with: 'Saving...' }
         = submit_tag "Preview", class: 'button', id: 'preview_button', name: 'button_preview'
 
 - if post.id.present? && !post.editable_by?(current_user)

@@ -61,7 +61,8 @@ CREATE TABLE audits (
     version integer DEFAULT 0,
     comment character varying(255),
     remote_address character varying(255),
-    created_at timestamp without time zone
+    created_at timestamp without time zone,
+    request_uuid character varying(255)
 );
 
 
@@ -1786,5 +1787,7 @@ INSERT INTO schema_migrations (version) VALUES ('20161126195558');
 INSERT INTO schema_migrations (version) VALUES ('20161218194918');
 
 INSERT INTO schema_migrations (version) VALUES ('20170103184309');
+
+INSERT INTO schema_migrations (version) VALUES ('20170105221851');
 
 INSERT INTO schema_migrations (version) VALUES ('20170109000120');

@@ -40,7 +40,8 @@ class MessagesController < ApplicationController
   end
 
   def create
-    @message = Message.new((params[:message] || {}).merge(sender: current_user))
+    @message = Message.new((params[:message] || {}))
+    @message.sender = current_user
 
     if params[:parent_id].present?
       @message.parent = Message.find_by_id(params[:parent_id])

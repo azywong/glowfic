@@ -3,6 +3,7 @@ class Template < ActiveRecord::Base
   has_many :characters
 
   validates_presence_of :name
+  attr_accessible :user, :user_id, :name, :description
 
   before_destroy :clear_character_templates
 

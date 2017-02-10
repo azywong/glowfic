@@ -300,8 +300,8 @@ RSpec.describe RepliesController do
   describe "GET search" do
     context "no search" do
       before(:each) do
-        2.times do 
-          create(:user) 
+        2.times do
+          create(:user)
           create(:character)
           create(:template_character)
         end

@@ -8,6 +8,8 @@ class Tag < ActiveRecord::Base
   validates_presence_of :user, :name
   validates :name, uniqueness: { scope: :type }
 
+  attr_accessible :user, :user_id, :name, :type
+
   def editable_by?(user)
     user.try(:admin?)
   end

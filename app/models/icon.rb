@@ -14,6 +14,8 @@ class Icon < ActiveRecord::Base
   after_destroy :clear_icon_ids
   before_destroy :delete_from_s3
 
+  attr_accessible :user, :user_id, :url, :keyword, :credit
+
   def uploaded?
     url.to_s.starts_with?('https://d1anwqy6ci9o1i.cloudfront.net/')
   end

@@ -111,11 +111,11 @@ class PostScraper < Object
 
   def set_from_username(tag, username)
     if BASE_ACCOUNTS.keys.include?(username)
-      tag.user = User.find_by_username(BASE_ACCOUNTS[username])
+      tag.user = User.where(username: BASE_ACCOUNTS[username]).first
       return
     end
 
-    unless character = Character.find_by_screenname(username)
+    unless character = Character.where(screenname: username).first
       user = prompt_for_user(username)
       character = Character.create!(user: user, name: username, screenname: username)
       gallery = Gallery.create!(user: user, name: username)
@@ -140,7 +140,7 @@ class PostScraper < Object
     host_url = url.gsub(/https?:\/\//, "")
     http_url = 'http://' + host_url
     https_url = 'https://' + host_url
-    icon = Icon.find_by_url(https_url) || Icon.find_by_url(http_url)
+    icon = Icon.where(url: https_url).first || Icon.where(url: http_url).first
     tag.icon = icon and return if icon
 
     end_index = keyword.index("(Default)").to_i - 1

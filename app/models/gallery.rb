@@ -7,6 +7,7 @@ class Gallery < ActiveRecord::Base
   has_many :characters, through: :characters_galleries
 
   accepts_nested_attributes_for :icons
+  attr_accessible :user, :user_id, :name #, :cover_icon, :cover_icon_id
 
   validates_presence_of :user, :name
 

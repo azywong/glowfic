@@ -4,6 +4,7 @@ class Message < ActiveRecord::Base
   belongs_to :parent, class_name: Message
 
   validates_presence_of :sender, :recipient
+  attr_accessible :recipient, :recipient_id, :parent, :parent_id, :thread, :thread_id, :subject, :message, :visible_inbox, :visible_outbox, :marked_inbox, :marked_outbox, :read_at, :unread
 
   after_create :set_thread_id, :notify_recipient
 

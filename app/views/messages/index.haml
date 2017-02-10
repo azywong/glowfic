@@ -31,4 +31,4 @@
           - if @view == 'inbox'
             = submit_tag "Mark Read / Unread", class: 'button'
           = submit_tag "Mark / Unmark Important", class: 'button'
-          = submit_tag "Delete", class: 'button', confirm: "Are you sure you want to delete these messages?"
+          = submit_tag "Delete", class: 'button', data: { confirm: "Are you sure you want to delete these messages?" }

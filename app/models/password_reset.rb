@@ -6,8 +6,8 @@ class PasswordReset < ActiveRecord::Base
 
   before_validation :generate_unique_auth_token
 
-  scope :active, lambda{ where('created_at > ?', 1.day.ago) }
-  scope :unused, where(used: false)
+  scope :active, -> { where('created_at > ?', 1.day.ago) }
+  scope :unused, -> { where(used: false) }
 
   def active?
     created_at > 1.day.ago
@@ -18,7 +18,7 @@ class PasswordReset < ActiveRecord::Base
   def generate_unique_auth_token
     return if auth_token.present?
     return unless user
-    loop do 
+    loop do
       self.auth_token = generate_auth_token
       break unless self.class.where(auth_token: self.auth_token).exists?
     end

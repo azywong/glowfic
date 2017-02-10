@@ -10,7 +10,7 @@ class Character < ActiveRecord::Base
 
   has_many :characters_galleries
   has_many :galleries, through: :characters_galleries, after_remove: :reorder_galleries
-  has_many :icons, through: :galleries, group: 'icons.id', order: 'LOWER(keyword)'
+  has_many :icons, -> { order('LOWER(keyword)').group('icons.id') }, through: :galleries
 
   has_many :character_tags, inverse_of: :character, dependent: :destroy
   has_many :tags, through: :character_tags, source: :all_tags, source_type: 'Tag' # TODO THIS IS BROKEN does not filter subtypes like setting
@@ -21,6 +21,7 @@ class Character < ActiveRecord::Base
   validate :valid_template, :valid_group, :valid_galleries, :valid_default_icon
 
   attr_accessor :new_template_name, :group_name
+  attr_protected []
 
   nilify_blanks
 
@@ -73,13 +74,13 @@ class Character < ActiveRecord::Base
       v.each { |val| errors.add('group '+k.to_s, val) }
     end
   end
-  
+
   def valid_galleries
     if galleries.present? && galleries.detect{|g| g.user_id != user.id}
       errors.add(:galleries, "must be yours")
     end
   end
-  
+
   def valid_default_icon
     if default_icon.present? && default_icon.user_id != user_id
       errors.add(:default_icon, "must be yours")

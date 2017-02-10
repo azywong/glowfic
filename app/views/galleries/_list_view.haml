@@ -24,5 +24,5 @@
           = image_tag "/images/add.png"
         = link_to edit_gallery_path(gallery), title: "Edit Gallery", class: 'gallery-edit' do
           = image_tag "/images/pencil.png"
-        = link_to gallery_path(gallery), title: "Delete Gallery", method: :delete, confirm: "Are you sure you want to delete #{gallery.name}?", class: 'gallery-delete' do
+        = link_to gallery_path(gallery), title: "Delete Gallery", method: :delete, data: { confirm: "Are you sure you want to delete #{gallery.name}?" }, class: 'gallery-delete' do
           = image_tag "/images/cross.png"
