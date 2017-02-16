@@ -59,8 +59,8 @@ RSpec.describe Api::V1::BoardSectionsController do
       expect(board_section.reload.section_order).to eq(1)
 
       changes = {}
-      changes[board_post.id] = {type: 'Post', order: 1}
-      changes[board_section.id] = {type: 'BoardSection', order: 0}
+      changes[0] = {id: board_post.id, type: 'Post', order: 1}
+      changes[1] = {id: board_section.id, type: 'BoardSection', order: 0}
 
       login_as(board.creator)
       post :reorder, changes: changes

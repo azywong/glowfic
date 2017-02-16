@@ -9,8 +9,9 @@ class Api::V1::BoardSectionsController < Api::ApiController
   api! 'Update the order of subcontinuities (or, confusingly, posts). This may be moved or renamed and should not be trusted.'
   error 401, "You must be logged in"
   param :changes, Hash do
-    param :section_id, Hash do
-      param :type, ['BoardSection', 'Post']
+    param :number, Hash do
+      param :id, :number
+      param :type, ['Post', 'BoardSection']
       param :order, :number
     end
   end
@@ -18,14 +19,15 @@ class Api::V1::BoardSectionsController < Api::ApiController
     valid_types = ['Post', 'BoardSection']
 
     BoardSection.transaction do
-      params[:changes].each do |section_id, change_info|
-        section_type = change_info[:type]
+      params[:changes].each do |_, changeset|
+        section_id = changeset[:id]
+        section_type = changeset[:type]
+        section_order = changeset[:order]
         next unless valid_types.include?(section_type)
 
         section = section_type.constantize.find_by_id(section_id)
         next unless section && section.board.editable_by?(current_user)
 
-        section_order = change_info[:order]
         section.update_attributes(section_order: section_order)
       end
     end
