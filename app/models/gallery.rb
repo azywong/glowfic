@@ -11,6 +11,8 @@ class Gallery < ActiveRecord::Base
 
   validates_presence_of :user, :name
 
+  after_save :set_icons_has_gallery
+
   scope :ordered, -> { order('characters_galleries.section_order ASC') }
 
   def default_icon
@@ -22,8 +24,12 @@ class Gallery < ActiveRecord::Base
   end
 
   private
+  def set_icons_has_gallery
+    icons.update_all(has_gallery: true)
+  end
 
   def set_has_gallery(icon)
+    return if new_record?
     icon.update_attributes(has_gallery: true)
   end
 
