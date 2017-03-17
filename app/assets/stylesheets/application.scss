@@ -10,13 +10,10 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require normalize
- *= require select2
- *= require global
- *= require characters
- *= require galleries
- *= require layout
- *= require replies
- *= require messages
- *= require_self
  */
+
+@import "bootstrap";
+@import "vendor/metisMenu.min";
+@import "vendor/sb-admin-2";
+@import "font-awesome";
+@import "styles";

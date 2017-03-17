@@ -4,7 +4,7 @@ default: &default
 
 development:
   <<: *default
-  database: glowfic_dev
+  database: allisonw
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

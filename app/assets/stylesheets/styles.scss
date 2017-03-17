@@ -1,0 +1,24 @@
+nav {
+	background-image: url("/images/starry.jpg");
+	color: #fff;
+}
+ul.nav li.dropdown a.dropdown-toggle i {
+	color: #fff;
+}
+ul.nav li.dropdown:hover a.dropdown-toggle:hover {
+	background-color: #000;
+	opacity: 0.4;
+}
+ul.nav li.dropdown:hover a.dropdown-toggle:focus {
+	background-color: #000;
+	opacity: 0.6;
+}
+ul.nav li.dropdown:hover a.dropdown-toggle:active {
+	background-color: #000;
+	opacity: 0.8;
+}
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+    background-color: #000;
+    border-color: #000;
+    opacity: 0.75;
+}

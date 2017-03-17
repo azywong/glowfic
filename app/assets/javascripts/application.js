@@ -11,6 +11,9 @@
 // about supported directives.
 //
 //= require jquery
+//= require bootstrap
+//= require vendor/metisMenu.min
+//= require vendor/sb-admin-2.min
 //= require jquery_ujs
 //= require jquery.ui.widget
 //= require jquery-fileupload/basic

@@ -31,6 +31,8 @@ gem 'select2-rails'
 gem 'test-unit', '~> 3.0' # required by Heroku for production console
 gem 'tinymce-rails'
 gem 'will_paginate', '~> 3.0.6'
+gem 'bootstrap-sass', '~> 3.1.1.0'
+gem "font-awesome-rails"
 
 group :production do
   gem 'puma'
